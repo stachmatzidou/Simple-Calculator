@@ -31,7 +31,7 @@ operations.forEach(operation => {
         }
         haveDot = false;
         const operationName = e.target.innerText;
-        if(previousDisplayNumber && currentDisplayNumber && lastOperation) {
+        if (previousDisplayNumber && currentDisplayNumber && lastOperation) {
             operate();
         } else {
             result = parseFloat(currentDisplayNumber);
@@ -42,7 +42,7 @@ operations.forEach(operation => {
 });
 
 equalsBtn.addEventListener("click", (e) => {
-    if(!currentDisplayNumber || !previousDisplayNumber) {
+    if (!currentDisplayNumber || !previousDisplayNumber) {
         return;
     }
     haveDot = false;
@@ -62,9 +62,9 @@ acBtn.addEventListener("click", (e) => {
 });
 
 delBtn.addEventListener("click", (e) => {
-    currentDisplayNumber = currentDisplayNumber.substr(0, currentDisplayNumber.length -1);
-     currentDisplay.innerText = currentDisplayNumber;
-     if(currentDisplayNumber.length === 0) {
+    currentDisplayNumber = currentDisplayNumber.substr(0, currentDisplayNumber.length - 1);
+    currentDisplay.innerText = currentDisplayNumber;
+    if (currentDisplayNumber.length === 0) {
         currentDisplay.innerText = "0";
     }
 });
@@ -77,17 +77,27 @@ function clearVar(name = "") {
 }
 
 function operate() {
-    if(lastOperation === "+") {
+    if (lastOperation === "+") {
         result = parseFloat(result) + parseFloat(currentDisplayNumber);
-    } else if(lastOperation === "-") {
+    } else if (lastOperation === "-") {
         result = parseFloat(result) - parseFloat(currentDisplayNumber);
-    } else if(lastOperation === "x") {
+    } else if (lastOperation === "x") {
         result = parseFloat(result) * parseFloat(currentDisplayNumber);
-    } else if(lastOperation === "÷") {
-        if(parseFloat(currentDisplayNumber) != 0) {
+    } else if (lastOperation === "÷") {
+        if (parseFloat(currentDisplayNumber) != 0) {
             result = parseFloat(result) / parseFloat(currentDisplayNumber);
         } else {
             result = "undefined";
+            const buttons = document.querySelectorAll(".button");
+            buttons.forEach(button => {
+                button.addEventListener("click", () => {
+                    previousDisplay.innerText = "0";
+                    previousDisplayNumber = "";
+                    currentDisplay.innerText = "0";
+                    currentDisplayNumber = "";
+                    result = "";
+                });
+            })
         }
     }
 }
