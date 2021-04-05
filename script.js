@@ -64,6 +64,9 @@ acBtn.addEventListener("click", (e) => {
 delBtn.addEventListener("click", (e) => {
     currentDisplayNumber = currentDisplayNumber.substr(0, currentDisplayNumber.length -1);
      currentDisplay.innerText = currentDisplayNumber;
+     if(currentDisplayNumber.length === 0) {
+        currentDisplay.innerText = "0";
+    }
 });
 
 function clearVar(name = "") {
