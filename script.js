@@ -51,9 +51,13 @@ equalsBtn.addEventListener("click", (e) => {
     currentDisplay.innerText = result;
     currentDisplayNumber = result;
     previousDisplayNumber = "";
+    if (Number.isInteger(result) === false && currentDisplay.innerText.length >= 13) {
+        currentDisplay.innerText = result.toFixed(6);
+    }
 });
 
 acBtn.addEventListener("click", (e) => {
+    haveDot = false;
     previousDisplay.innerText = "0";
     previousDisplayNumber = "";
     currentDisplay.innerText = "0";
@@ -88,14 +92,19 @@ function operate() {
             result = parseFloat(result) / parseFloat(currentDisplayNumber);
         } else {
             result = "undefined";
+            let wasExecuted = false;
             const buttons = document.querySelectorAll(".button");
             buttons.forEach(button => {
-                button.addEventListener("click", () => {
+                button.addEventListener("click", function() {
+                    if(wasExecuted) {
+                        return;
+                    }
                     previousDisplay.innerText = "0";
                     previousDisplayNumber = "";
                     currentDisplay.innerText = "0";
                     currentDisplayNumber = "";
                     result = "";
+                    wasExecuted = true;
                 });
             })
         }
